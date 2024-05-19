@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/data/mock_data.dart';
+import 'package:flutter_meals/models/category.dart';
 import 'package:flutter_meals/screens/meals.dart';
 import 'package:flutter_meals/widgets/category_grid_item.dart';
 
@@ -9,12 +10,14 @@ const gridSpacing = 16.0;
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
-  void _selectCategory(BuildContext context) {
+  void _selectCategory(BuildContext context, Category category) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const MealsScreen(
-          title: 'Title',
-          meals: dummyMeals,
+        builder: (context) => MealsScreen(
+          title: category.title,
+          meals: dummyMeals
+              .where((meal) => meal.categories.contains(category.id))
+              .toList(),
         ),
       ),
     );
@@ -36,10 +39,13 @@ class CategoriesScreen extends StatelessWidget {
           mainAxisSpacing: gridSpacing,
         ),
         itemCount: availableCategories.length,
-        itemBuilder: (context, index) => CategoryGridItem(
-          onSelectCategory: () => _selectCategory(context),
-          category: availableCategories[index],
-        ),
+        itemBuilder: (context, index) {
+          final category = availableCategories[index];
+          return CategoryGridItem(
+            onSelectCategory: () => _selectCategory(context, category),
+            category: category,
+          );
+        },
       ),
     );
   }
