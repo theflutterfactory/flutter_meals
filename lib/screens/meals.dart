@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/models/meal.dart';
 
 class MealsScreen extends StatelessWidget {
@@ -16,27 +17,29 @@ class MealsScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return meals.isEmpty
-        ? Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'List is Empty',
-                  style: theme.textTheme.headlineLarge!.copyWith(
-                    color: theme.colorScheme.onBackground,
+        ? Scaffold(
+            key: ScreenKeys.emptyMealScreenKey,
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'List is Empty',
+                    style: theme.textTheme.headlineLarge!
+                        .copyWith(color: theme.primaryColorLight),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Please select a different category',
-                  style: theme.textTheme.bodyLarge!.copyWith(
-                    color: theme.colorScheme.onBackground,
+                  const SizedBox(height: 16),
+                  Text(
+                    'Please select a different category',
+                    style: theme.textTheme.bodyLarge!
+                        .copyWith(color: theme.primaryColorLight),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         : Scaffold(
+            key: ScreenKeys.mealsScreenKey,
             appBar: AppBar(title: Text(title)),
             backgroundColor: Colors.white,
             body: ListView.builder(

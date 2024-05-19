@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/data/mock_data.dart';
 import 'package:flutter_meals/screens/meals.dart';
 import 'package:flutter_meals/widgets/category_grid_item.dart';
@@ -22,6 +23,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: ScreenKeys.categoriesScreenKey,
       appBar: AppBar(
         title: const Text('Choose a category'),
       ),
