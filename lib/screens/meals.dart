@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/models/meal.dart';
+import 'package:flutter_meals/screens/meal_details.dart';
 import 'package:flutter_meals/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
@@ -42,10 +43,18 @@ class MealsScreen extends StatelessWidget {
         : Scaffold(
             key: ScreenKeys.mealsScreenKey,
             appBar: AppBar(title: Text(title)),
-            backgroundColor: Colors.white,
             body: ListView.builder(
               itemCount: meals.length,
-              itemBuilder: (context, index) => MealItem(meal: meals[index]),
+              itemBuilder: (context, index) => MealItem(
+                meal: meals[index],
+                onMealTap: (Meal meal) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MealDetailsSceen(meal: meal),
+                    ),
+                  );
+                },
+              ),
             ),
           );
   }
