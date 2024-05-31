@@ -12,13 +12,17 @@ class CategoriesScreen extends StatelessWidget {
 
   void _selectCategory(BuildContext context, Category category) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => MealsScreen(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => MealsScreen(
           title: category.title,
-          meals: dummyMeals
-              .where((meal) => meal.categories.contains(category.id))
-              .toList(),
+          id: category.id,
         ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
       ),
     );
   }
