@@ -66,6 +66,7 @@ class EmptyMealsScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(title: const Text('Flutter Meals')),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
