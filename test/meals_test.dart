@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/main.dart';
 import 'package:flutter_meals/screens/categories.dart';
 import 'package:flutter_meals/screens/meal_details.dart';
@@ -65,6 +66,23 @@ void main() {
     await tester.pumpAndSettle(const Duration(seconds: 2));
 
     expect(find.byType(EmptyMealsScreen), findsOneWidget);
+  });
+
+  // Can show correct screen when switching tabs
+  testWidgets('clicking on favorite tab should navigate to favorites screen',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(child: App()));
+
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.tap(find.byKey(TabKeys.mealsTabKey));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    expect(find.byType(MealsScreen), findsOneWidget);
+    expect(find.byType(CategoriesScreen), findsNothing);
+
+    await tester.tap(find.byKey(TabKeys.categoryTabKey));
+    await tester.pumpAndSettle(const Duration(seconds: 2));
+    expect(find.byType(CategoriesScreen), findsOneWidget);
+    expect(find.byType(MealsScreen), findsNothing);
   });
 }
 

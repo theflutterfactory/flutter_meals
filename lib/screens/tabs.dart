@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/screens/categories.dart';
 import 'package:flutter_meals/screens/meals.dart';
 
@@ -38,10 +39,15 @@ class _TabsStateState extends State<TabsScreen> {
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(
+            key: TabKeys.categoryTabKey,
             icon: Icon(Icons.set_meal),
             label: 'Categories',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorites'),
+          BottomNavigationBarItem(
+            key: TabKeys.mealsTabKey,
+            icon: Icon(Icons.star),
+            label: 'Favorites',
+          ),
         ],
       ),
     );
