@@ -56,7 +56,7 @@ void main() {
 
   testWidgets('empty meal screen shows when meals are empty',
       (WidgetTester tester) async {
-    const mealsScreen = MealsScreen(title: 'Test Meals', id: 'test');
+    const mealsScreen = MealsScreen(id: 'test');
 
     await tester.pumpWidget(
       const ProviderScope(
@@ -68,7 +68,6 @@ void main() {
     expect(find.byType(EmptyMealsScreen), findsOneWidget);
   });
 
-  // Can show correct screen when switching tabs
   testWidgets('clicking on favorite tab should navigate to favorites screen',
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: App()));

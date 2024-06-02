@@ -13,7 +13,6 @@ class CategoriesScreen extends StatelessWidget {
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => MealsScreen(
-          title: category.title,
           id: category.id,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {

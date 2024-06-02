@@ -11,6 +11,4 @@ class MealService {
   }
 }
 
-final mealServiceProvider = Provider<MealService>((ref) {
-  return MealService();
-});
+final mealServiceProvider = Provider<MealService>((ref) => MealService());

@@ -7,9 +7,8 @@ import 'package:flutter_meals/widgets/progress_indicator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MealsScreen extends ConsumerWidget {
-  const MealsScreen({super.key, this.title, required this.id});
+  const MealsScreen({super.key, required this.id});
 
-  final String? title;
   final String id;
 
   @override
@@ -22,29 +21,30 @@ class MealsScreen extends ConsumerWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MealsProgressIndicator();
         } else if (snapshot.data == null || snapshot.data!.isEmpty) {
-          return EmptyMealsScreen(title);
+          return const EmptyMealsScreen();
         } else {
-          return MealsList(snapshot.data!, title);
+          return MealsList(snapshot.data!);
         }
       },
     );
   }
 }
 
-class MealsList extends StatelessWidget {
-  const MealsList(this.meals, this.title, {super.key});
+class MealsList extends ConsumerWidget {
+  const MealsList(this.meals, {super.key});
 
   final List<Meal> meals;
-  final String? title;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final title = ref.read(mealsTitleProvider);
+
     if (title == null) {
       return _mealsListView(meals);
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(title!)),
+      appBar: AppBar(title: Text(title)),
       body: _mealsListView(meals),
     );
   }
@@ -64,13 +64,13 @@ class MealsList extends StatelessWidget {
       );
 }
 
-class EmptyMealsScreen extends StatelessWidget {
-  const EmptyMealsScreen(this.title, {super.key});
-
-  final String? title;
+class EmptyMealsScreen extends ConsumerWidget {
+  const EmptyMealsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final title = ref.read(mealsTitleProvider);
+
     if (title == null) {
       return _emptyMealsView(Theme.of(context));
     }
@@ -87,16 +87,16 @@ class EmptyMealsScreen extends StatelessWidget {
           children: [
             Text(
               'List is Empty',
-              style: theme.textTheme.headlineLarge!
-                  .copyWith(color: theme.primaryColorLight),
+              style: theme.textTheme.titleLarge!.copyWith(fontSize: 36),
             ),
             const SizedBox(height: 16),
             Text(
               'Please select a different category',
-              style: theme.textTheme.bodyLarge!
-                  .copyWith(color: theme.primaryColorLight),
+              style: theme.textTheme.bodyLarge!,
             ),
           ],
         ),
       );
 }
+
+final mealsTitleProvider = StateProvider<String?>((ref) => null);

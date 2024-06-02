@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/screens/categories.dart';
 import 'package:flutter_meals/screens/meals.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsStateState();
+  ConsumerState<TabsScreen> createState() => _TabsStateState();
 }
 
-class _TabsStateState extends State<TabsScreen> {
+class _TabsStateState extends ConsumerState<TabsScreen> {
   int _selectedIndex = 0;
 
   void _selectPage(int index) {
@@ -35,7 +36,11 @@ class _TabsStateState extends State<TabsScreen> {
       appBar: AppBar(title: Text(activePageTitle)),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
-        onTap: _selectPage,
+        onTap: (index) {
+          ref.read(mealsTitleProvider.notifier).state = null;
+
+          _selectPage(index);
+        },
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(
