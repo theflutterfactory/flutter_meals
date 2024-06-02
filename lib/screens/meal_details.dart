@@ -10,7 +10,7 @@ class MealDetailsSceen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(meal.title)),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Image.network(
@@ -19,9 +19,39 @@ class MealDetailsSceen extends StatelessWidget {
               height: 300,
               fit: BoxFit.cover,
             ),
-            Text(meal.title),
-            Text(meal.complexity.toString()),
-            Text(meal.affordability.toString()),
+            const SizedBox(height: 16),
+            Text(
+              'Ingredients',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            for (final ingredient in meal.ingredients)
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(ingredient),
+              ),
+            const SizedBox(height: 16),
+            Text(
+              'Steps',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            for (final step in meal.steps)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8,
+                ),
+                child: Text(
+                  step,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.start,
+                ),
+              ),
           ],
         ),
       ),
