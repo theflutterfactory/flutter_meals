@@ -7,9 +7,9 @@ import 'package:flutter_meals/widgets/progress_indicator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MealsScreen extends ConsumerWidget {
-  const MealsScreen({super.key, required this.title, required this.id});
+  const MealsScreen({super.key, this.title, required this.id});
 
-  final String title;
+  final String? title;
   final String id;
 
   @override
@@ -22,7 +22,7 @@ class MealsScreen extends ConsumerWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MealsProgressIndicator();
         } else if (snapshot.data == null || snapshot.data!.isEmpty) {
-          return const EmptyMealsScreen();
+          return EmptyMealsScreen(title);
         } else {
           return MealsList(snapshot.data!, title);
         }
@@ -35,13 +35,21 @@ class MealsList extends StatelessWidget {
   const MealsList(this.meals, this.title, {super.key});
 
   final List<Meal> meals;
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
+    if (title == null) {
+      return _mealsListView(meals);
+    }
+
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: ListView.builder(
+      appBar: AppBar(title: Text(title!)),
+      body: _mealsListView(meals),
+    );
+  }
+
+  ListView _mealsListView(List<Meal> meals) => ListView.builder(
         itemCount: meals.length,
         itemBuilder: (context, index) => MealItem(
           meal: meals[index],
@@ -53,21 +61,27 @@ class MealsList extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
+      );
 }
 
 class EmptyMealsScreen extends StatelessWidget {
-  const EmptyMealsScreen({super.key});
+  const EmptyMealsScreen(this.title, {super.key});
+
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    if (title == null) {
+      return _emptyMealsView(Theme.of(context));
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter Meals')),
-      body: Center(
+      body: _emptyMealsView(Theme.of(context)),
+    );
+  }
+
+  Widget _emptyMealsView(ThemeData theme) => Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -84,7 +98,5 @@ class EmptyMealsScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
 }
