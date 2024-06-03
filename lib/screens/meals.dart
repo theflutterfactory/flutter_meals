@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meals/models/meal.dart';
 import 'package:flutter_meals/screens/meal_details.dart';
+import 'package:flutter_meals/screens/tabs.dart';
 import 'package:flutter_meals/service/meal_service.dart';
 import 'package:flutter_meals/widgets/meal_item.dart';
 import 'package:flutter_meals/widgets/progress_indicator.dart';
@@ -39,7 +40,7 @@ class MealsList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final title = ref.read(mealsTitleProvider);
 
-    if (title == null) {
+    if (title == yourFavoritesTitle) {
       return _mealsListView(meals);
     }
 
@@ -71,12 +72,12 @@ class EmptyMealsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final title = ref.read(mealsTitleProvider);
 
-    if (title == null) {
+    if (title == yourFavoritesTitle) {
       return _emptyMealsView(Theme.of(context));
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Meals')),
+      appBar: AppBar(title: Text(title)),
       body: _emptyMealsView(Theme.of(context)),
     );
   }
@@ -99,4 +100,4 @@ class EmptyMealsScreen extends ConsumerWidget {
       );
 }
 
-final mealsTitleProvider = StateProvider<String?>((ref) => null);
+final mealsTitleProvider = StateProvider<String>((ref) => categoriesTitle);
