@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meals/models/meal.dart';
+import 'package:flutter_meals/notifiers/favorites_notifier.dart';
 import 'package:flutter_meals/screens/meal_details.dart';
 import 'package:flutter_meals/screens/tabs.dart';
 import 'package:flutter_meals/service/meal_service.dart';
@@ -10,14 +11,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MealsScreen extends ConsumerWidget {
   const MealsScreen({super.key, required this.id});
 
+  // Id of the category to display. If not set, display the list of favorites
   final String id;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mealService = ref.watch(mealServiceProvider);
-
     return FutureBuilder<List<Meal>>(
-      future: mealService.getMeals(id),
+      future: id.isEmpty
+          ? Future.value(ref.read(favoritesProvider))
+          : ref.read(mealServiceProvider).getMeals(id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MealsProgressIndicator();

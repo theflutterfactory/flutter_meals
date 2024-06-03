@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meals/models/meal.dart';
+import 'package:flutter_meals/notifiers/favorites_notifier.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MealDetailsSceen extends StatelessWidget {
   const MealDetailsSceen({super.key, required this.meal});
@@ -9,7 +11,22 @@ class MealDetailsSceen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(meal.title)),
+      appBar: AppBar(
+        title: Text(meal.title),
+        actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              return IconButton(
+                onPressed: () =>
+                    ref.read(favoritesProvider.notifier).toggleFavorite(meal),
+                icon: ref.watch(favoritesProvider).contains(meal)
+                    ? const Icon(Icons.star)
+                    : const Icon(Icons.star_outline),
+              );
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
