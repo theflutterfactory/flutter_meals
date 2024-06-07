@@ -57,7 +57,7 @@ class _TabsStateState extends ConsumerState<TabsScreen>
             label: 'Categories',
           ),
           BottomNavigationBarItem(
-            key: TabKeys.mealsTabKey,
+            key: TabKeys.favporitesTabKey,
             icon: Icon(Icons.star),
             label: 'Favorites',
           ),

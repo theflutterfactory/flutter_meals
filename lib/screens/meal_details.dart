@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/models/meal.dart';
 import 'package:flutter_meals/notifiers/favorites_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,7 @@ class MealDetailsSceen extends StatelessWidget {
           Consumer(
             builder: (context, ref, child) {
               return IconButton(
+                key: IconButtonKeys.favoriteIconButtonKey,
                 onPressed: () =>
                     ref.read(favoritesProvider.notifier).toggleFavorite(meal),
                 icon: ref.watch(favoritesProvider).contains(meal)
