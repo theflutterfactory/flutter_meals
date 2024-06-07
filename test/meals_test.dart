@@ -63,7 +63,7 @@ void main() {
         child: MaterialApp(home: mealsScreen),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
 
     expect(find.byType(EmptyMealsScreen), findsOneWidget);
   });
@@ -72,16 +72,47 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: App()));
 
-    await tester.pumpAndSettle(const Duration(seconds: 2));
-    await tester.tap(find.byKey(TabKeys.mealsTabKey));
-    await tester.pumpAndSettle(const Duration(seconds: 2));
-    expect(find.byType(MealsScreen), findsOneWidget);
-    expect(find.byType(CategoriesScreen), findsNothing);
-
-    await tester.tap(find.byKey(TabKeys.categoryTabKey));
-    await tester.pumpAndSettle(const Duration(seconds: 2));
     expect(find.byType(CategoriesScreen), findsOneWidget);
     expect(find.byType(MealsScreen), findsNothing);
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(TabKeys.favoritesTabKey));
+    await tester.pumpAndSettle();
+    expect(find.byType(MealsScreen), findsOneWidget);
+    expect(find.byType(CategoriesScreen), findsNothing);
+  });
+
+  testWidgets('Can favorite a meal and have it show in favorites',
+      (tester) async {
+    await mockNetworkImages(() async {
+      await navigateToMealsScreen(tester);
+
+      await tester.tap(find.byType(MealItem).first);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(MealDetailsSceen), findsOneWidget);
+
+      final Finder favoriteButton = find.byKey(
+        IconButtonKeys.favoriteIconButtonKey,
+      );
+      expect(favoriteButton, findsOneWidget);
+
+      await tester.tap(favoriteButton);
+      await tester.pumpAndSettle();
+
+      // navigate back to the home screen from the meal details screen
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(BackButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(CategoriesScreen), findsOneWidget);
+
+      await tester.tap(find.byKey(TabKeys.favoritesTabKey));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(MealItem), findsOneWidget);
+    });
   });
 }
 

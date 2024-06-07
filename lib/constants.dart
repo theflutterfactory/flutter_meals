@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TabKeys {
   static const Key categoryTabKey = Key('categories_tab');
-  static const Key favporitesTabKey = Key('favorites_tab');
+  static const Key favoritesTabKey = Key('favorites_tab');
 }
 
 class IconButtonKeys {
