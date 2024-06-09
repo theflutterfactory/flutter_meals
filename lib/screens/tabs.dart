@@ -44,6 +44,7 @@ class _TabsStateState extends ConsumerState<TabsScreen>
         title: Text(ref.read(mealsTitleProvider.notifier).state),
       ),
       body: TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: const [CategoriesScreen(), MealsScreen(id: '')],
       ),
@@ -54,7 +55,7 @@ class _TabsStateState extends ConsumerState<TabsScreen>
           BottomNavigationBarItem(
             key: TabKeys.categoryTabKey,
             icon: Icon(Icons.set_meal),
-            label: 'Categories',
+            label: categoriesTitle,
           ),
           BottomNavigationBarItem(
             key: TabKeys.favoritesTabKey,
