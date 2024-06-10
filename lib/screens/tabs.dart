@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_meals/constants.dart';
 import 'package:flutter_meals/screens/categories.dart';
 import 'package:flutter_meals/screens/meals.dart';
+import 'package:flutter_meals/widgets/main_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const String yourFavoritesTitle = 'Your Favorites';
@@ -43,6 +44,7 @@ class _TabsStateState extends ConsumerState<TabsScreen>
       appBar: AppBar(
         title: Text(ref.read(mealsTitleProvider.notifier).state),
       ),
+      drawer: const MainDrawer(),
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
