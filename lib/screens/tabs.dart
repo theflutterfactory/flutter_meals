@@ -48,7 +48,7 @@ class _TabsStateState extends ConsumerState<TabsScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: const [CategoriesScreen(), MealsScreen(id: '')],
+        children: const [CategoriesScreen(), MealsScreen()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) => _tabController.index = index,

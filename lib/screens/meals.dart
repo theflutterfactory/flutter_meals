@@ -9,7 +9,7 @@ import 'package:flutter_meals/widgets/progress_indicator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MealsScreen extends ConsumerWidget {
-  const MealsScreen({super.key, required this.id});
+  const MealsScreen({super.key, this.id = ''});
 
   // Id of the category to display. If not set, display the list of favorites
   final String id;
