@@ -25,6 +25,45 @@ class FiltersScreen extends ConsumerWidget {
             activeColor: theme.colorScheme.tertiary,
             contentPadding: const EdgeInsets.all(32),
           ),
+          SwitchListTile(
+            value: ref.watch(filterProvider).isLactoseFree,
+            onChanged: (bool value) {
+              ref.read(filterProvider.notifier).updateLactoseFree(value);
+            },
+            title: Text(
+              'Lactose-free',
+              style: theme.textTheme.titleLarge,
+            ),
+            subtitle: const Text('Only include lactose-free meals'),
+            activeColor: theme.colorScheme.tertiary,
+            contentPadding: const EdgeInsets.all(32),
+          ),
+          SwitchListTile(
+            value: ref.watch(filterProvider).isVegetarian,
+            onChanged: (bool value) {
+              ref.read(filterProvider.notifier).updateVegetarian(value);
+            },
+            title: Text(
+              'Vegetarian',
+              style: theme.textTheme.titleLarge,
+            ),
+            subtitle: const Text('Only include vegetarian meals'),
+            activeColor: theme.colorScheme.tertiary,
+            contentPadding: const EdgeInsets.all(32),
+          ),
+          SwitchListTile(
+            value: ref.watch(filterProvider).isVegan,
+            onChanged: (bool value) {
+              ref.read(filterProvider.notifier).updateVegan(value);
+            },
+            title: Text(
+              'Vegan',
+              style: theme.textTheme.titleLarge,
+            ),
+            subtitle: const Text('Only include vegan meals'),
+            activeColor: theme.colorScheme.tertiary,
+            contentPadding: const EdgeInsets.all(32),
+          ),
         ],
       ),
     );

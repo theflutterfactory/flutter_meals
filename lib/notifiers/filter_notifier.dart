@@ -15,6 +15,10 @@ class FilterNotifier extends StateNotifier<FilterOptions> {
   void updateVegan(bool isVegan) {
     state = state.copyWith(isVegan: isVegan);
   }
+
+  void updateLactoseFree(bool isLactoseFree) {
+    state = state.copyWith(isLactoseFree: isLactoseFree);
+  }
 }
 
 final filterProvider = StateNotifierProvider<FilterNotifier, FilterOptions>(
