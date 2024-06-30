@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meals/screens/filters.dart';
+import 'package:flutter_meals/screens/tabs.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
+
+  void _navigateTo(BuildContext context, Widget screen) {
+    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +49,9 @@ class MainDrawer extends StatelessWidget {
               'Meals',
               style: theme.textTheme.titleMedium!.copyWith(fontSize: 18),
             ),
-            onTap: () {},
+            onTap: () {
+              _navigateTo(context, const TabsScreen());
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
@@ -47,7 +59,9 @@ class MainDrawer extends StatelessWidget {
               'Filters',
               style: theme.textTheme.titleMedium!.copyWith(fontSize: 18),
             ),
-            onTap: () {},
+            onTap: () {
+              _navigateTo(context, const FiltersScreen());
+            },
           ),
         ],
       ),

@@ -17,23 +17,24 @@ class MealDetailsSceen extends StatelessWidget {
         actions: [
           Consumer(
             builder: (context, ref, child) {
-              final isFavorited = ref.watch(favoritesProvider).contains(meal);
+              final isFavorite = ref.watch(
+                favoritesProvider.select((mealList) => mealList.contains(meal)),
+              );
               return IconButton(
                 key: IconButtonKeys.favoriteIconButtonKey,
                 onPressed: () {
-                  ref.read(favoritesProvider.notifier).toggleFavorite(meal);
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(isFavorited
+                      content: Text(isFavorite
                           ? '${meal.title} removed from favorites'
                           : '${meal.title} added to favorites'),
                     ),
                   );
+                  ref.read(favoritesProvider.notifier).toggleFavorite(meal);
                 },
-                icon: isFavorited
-                    ? const Icon(Icons.star)
-                    : const Icon(Icons.star_outline),
+                icon:
+                    Icon(isFavorite ? Icons.favorite : Icons.favorite_outline),
               );
             },
           ),

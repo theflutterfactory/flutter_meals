@@ -19,7 +19,7 @@ class MealsScreen extends ConsumerWidget {
     return FutureBuilder<List<Meal>>(
       future: id.isEmpty
           ? Future.value(ref.watch(favoritesProvider))
-          : ref.read(mealServiceProvider).getMeals(id),
+          : ref.read(mealServiceProvider).getMealsById(id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MealsProgressIndicator();
