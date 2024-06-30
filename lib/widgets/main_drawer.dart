@@ -5,12 +5,22 @@ import 'package:flutter_meals/screens/tabs.dart';
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
-  void _navigateTo(BuildContext context, Widget screen) {
+  void _navigateTo(
+    BuildContext context,
+    Widget screen, {
+    bool replace = false,
+  }) {
     Navigator.pop(context);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => screen),
-    );
+
+    replace
+        ? Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => screen),
+          )
+        : Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => screen),
+          );
   }
 
   @override
@@ -50,7 +60,7 @@ class MainDrawer extends StatelessWidget {
               style: theme.textTheme.titleMedium!.copyWith(fontSize: 18),
             ),
             onTap: () {
-              _navigateTo(context, const TabsScreen());
+              _navigateTo(context, const TabsScreen(), replace: true);
             },
           ),
           ListTile(
