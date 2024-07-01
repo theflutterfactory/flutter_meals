@@ -51,6 +51,34 @@ class MealDetailsSceen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
+              'Gluten-free: ${meal.isGlutenFree}',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            Text(
+              'Lactose-free: ${meal.isLactoseFree}',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            Text(
+              'Vegetarian: ${meal.isVegetarian}',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            Text(
+              'Vegan: ${meal.isVegan}',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+            Text(
               'Ingredients',
               style: Theme.of(context)
                   .textTheme
