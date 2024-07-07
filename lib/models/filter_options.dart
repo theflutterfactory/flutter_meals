@@ -24,4 +24,9 @@ class FilterOptions {
       isLactoseFree: isLactoseFree ?? this.isLactoseFree,
     );
   }
+
+  @override
+  String toString() {
+    return 'FilterOptions(isGlutenFree: $isGlutenFree, isVegetarian: $isVegetarian, isVegan: $isVegan, isLactoseFree: $isLactoseFree)';
+  }
 }
