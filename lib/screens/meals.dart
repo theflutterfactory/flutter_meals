@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meals/models/meal.dart';
 import 'package:flutter_meals/notifiers/favorites_notifier.dart';
-import 'package:flutter_meals/notifiers/filter_notifier.dart';
 import 'package:flutter_meals/screens/meal_details.dart';
 import 'package:flutter_meals/screens/tabs.dart';
 import 'package:flutter_meals/service/meal_service.dart';
@@ -20,9 +19,7 @@ class MealsScreen extends ConsumerWidget {
     return FutureBuilder<List<Meal>>(
       future: id.isEmpty
           ? Future.value(ref.watch(favoritesProvider))
-          : ref
-              .read(mealServiceProvider)
-              .getMealsById(id, ref.read(filterProvider)),
+          : Future.value(ref.read(mealsByIdProvider(id).future)),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MealsProgressIndicator();
